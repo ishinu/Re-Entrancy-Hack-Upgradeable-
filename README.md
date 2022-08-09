@@ -12,9 +12,9 @@
 ### Pre-requisites : 
 
 - Make an .env file in your code editor
-- Make an account on etherscan and get the API key ( eg : `B1QX12KTQITUSU1233VR6MYHMMCX6Q123K2` [not mine] ) 
-- Make an account on INFURA and get the API key ( eg :`e395b94df212337123cb3f938b123b18` [just an eg] )
-- Hope you have metamask, don't use main account, make a test account and get some ropsten Eth from `` and copy the private key. 
+- Make an account on etherscan and get the API key ( eg : `B1QX12KTQITUSU1233VR6M12MMCX6Q123K2` [not mine] ) 
+- Make an account on INFURA and get the API key ( eg :`e395b912f212337123cb3f938b123b18` [just an eg] )
+- Hope you have metamask, don't use main account, make a test account and get some ropsten Eth from `https://faucet.metamask.io/` and copy the private key of your test account just created. 
 
 Your .env file shall look like this : 
 
