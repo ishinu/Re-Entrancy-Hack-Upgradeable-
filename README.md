@@ -77,6 +77,56 @@ Feel free to mail me : tysmgroups@gmail.com
             ~Happy Coding!~
 ```
 
+# Part 2
+
+## Upgrading to Prevent Re-entrancy
+
+Solved the Re-Entrancy by making few necessary changes in BankV2.sol : 
+
+- First Way : Added a state variable ( bool ) to lock the Re-Entrancy until the executiion of external call finishes.
+- Second Way : Decrease the balance of user before external calls still entrancy will work but with less damage. 
+
+### Terminal commands to delpoy Version-2
+
+- `npx hardhat compile`
+- `env $(cat .env) npx hardhat run --network ropsten scripts/2_deploy_bankv2.js`
+
+```
+Original Bank Contract (proxy) address :  0x63dD81802f049A9d8aEA2Dc8083A24d2915c8e63
+Upgrading to Bank version 2!
+Bank Version 2 (proxy) address [ Must be same ] :  0x63dD81802f049A9d8aEA2Dc8083A24d2915c8e63
+Bank Implementation address :  0x716fb814F40b7535C23E42aFE467AE58397D3653
+Original Attack Contract (proxy) address :  0x5F7D25eeba4994d0e7927D81cd794436E9963936
+Upgrading to Attack version 2!
+Attack Version 2 (proxy) address [ Must be same ] :  0x5F7D25eeba4994d0e7927D81cd794436E9963936
+Attack Implementation address :  0x191A94e045B442179fbc1f633A6D47745F587ca6
+```
+
+Bank version 2 contract verification.
+
+- `env $(cat .env) npx hardhat verify --network ropsten 0xf5d8CB0b58b328dff44Bfb02E1a1FEc64C126702` 
+
+Go to Ropsten etherscan and move to 0x63dD81802f049A9d8aEA2Dc8083A24d2915c8e63 address information. 
+Search for 'is this a proxy ?', click on it, click on save.
+Your proxy is now pointing to the new implementation!
+
+Similarly for the Attack contract since earlier one was importing the previous Bank contract, Newer one ( AttackV2 ) is importing BankV2.
+
+*Mistake by me* : Instead of adding a new state variable in BankV2 contract, for BankV2 import, i removed the earlier one and renamed due to which
+storage clashes happened. Always add new state variables after the existing ones.
+
+Proceeding to upgrade the attack contract, first verify the AttackV2 contract code.
+
+- `env $(cat .env) npx hardhat verify --network ropsten 0x3a6693159aB0616c00cA6bFa145A3c1Ee4b223A5`
+
+Afterwards going to initialize function in 0x3a6693159aB0616c00cA6bFa145A3c1Ee4b223A5 in ropsten etherscan and providing value of 0xf5d8CB0b58b328dff44Bfb02E1a1FEc64C126702.
+
+And finally to Ropsten etherscan and move to 0x5F7D25eeba4994d0e7927D81cd794436E9963936 address information. 
+Search for 'is this a proxy ?', click on it, click on save.
+
+Done!
+Saved :) 
+
 
 
 
